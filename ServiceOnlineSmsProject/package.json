@@ -1,0 +1,11 @@
+{
+  "name": "pak",
+  "version": "0.2.1",
+  "description": "Kek",
+  "main": "service.js",
+  "scripts": {
+    "test": "echo hello world"
+  },
+  "author": "s",
+  "license": "ISC"
+}

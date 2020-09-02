@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="/animation.js"></script>
+  <script src="/styles.js"></script>
+  <script src="/requestWork.js"></script>
+  <script src="/authWork.js"></script>
+  <link rel="stylesheet" type="text/css" href="/coloredElements.css">
+</head>
+
+<body>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h1 class="my-0 mr-md-auto font-weight-normal">SimSms Online</h1>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a id="username-lk" class="p-2 text-dark">
+        Name
+      </a>
+      <a id="balance-lk" class="p-2 text-dark">
+        Balance: 0 Rub
+      </a>
+    </nav>
+    <button style="margin-right: 20px;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Пополнить баланс
+    </button>
+  
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Пополнить счет</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label>Число которое нужно пополнить</label>
+            <input id="added-enter-balance" type="text" class="form-control" placeholder="Число денег"
+               aria-describedby="btnGroupAddon">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+            <button type="button" id="added-money" class="btn btn-primary">Пополнить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form action="/logout" method="POST">
+      <button class="btn btn-outline-primary" type="submit">Выйти</button>
+    </form>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <span class="border col-md-4 ml-5 pl-5">
+        <div class="col-md-12 ml-1 pl-1">
+          <div>
+            <h4 class="mb-3">Получение номера</h4>
+          </div>
+          <div id="wrapper-country">
+            <div class="col-md-5 mb-3">
+              <label for="country">Страна</label>
+              <select class="custom-select d-block w-100" id="country-child"></select>
+            </div>
+            <!-- <div class="col-md-5 mb-3">
+              <label for="operators">Оператор</label>
+              <select class="custom-select d-block w-100" id="operators-child"></select>
+            </div> -->
+          </div>
+          <div id="wrapper-services">
+            <div class="col-md-6 mb-3">
+              <label for="searchPhone">Поиск сервиса</label>
+              <input class="form-control" id="search-obj" type="text" placeholder="" value="" required="">
+            </div>
+            <div class="col-md-5 mb-3">
+              <label>Сервис</label>
+              <select class="custom-select d-block w-100" id="service-child"></select>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="getnumber-start-work" type="submit">Получить номер</button>
+          <button style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-primary" id="numban-start-work"
+            type="submit">Номер уже использован</button>
+            <button style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-primary" id="checknum-start-work"
+            type="submit">Проверить код</button>
+            <button style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-primary" id="rejectionofnumber-start-work"
+            type="submit">Отказ от номера</button>
+            <button style="margin-top: 10px; margin-bottom: 10px;" class="btn btn-primary" id="getchecknumbersms-start-work"
+            type="submit">Проверка номера на получение смс</button>
+        </div>
+      </span>
+      <span class="border col-md-3">
+        <div class="col-md-12">
+          <h4 class="mb-3">Информация</h4>
+          <p id="service-variable"> <kbd id="service-opt-val" hidden></kbd></p>
+          <p id="country-variable"><kbd id="country-val" hidden></kbd></p>
+          <p id="online-variable"> <kbd id="online-val" hidden></kbd></p>
+          <p id="total-variable"> <kbd id="total-val" hidden></kbd></p>
+          <p id="forTotal-variable"> <kbd id="forTotal-val" hidden></kbd></p>
+          <p id="price-variable"> <kbd id="price-val" hidden></kbd></p>
+        </div>
+      </span>
+      <span class="border col-md-4">
+        <div class="col-md-6">
+          <h4 class="mb-3">Номер</h4>
+          <label>Номер доступен в течении </label>
+          <label for="basic-time-min" id="phone-time-min">0</label>
+          <label>:</label>
+          <label for="basic-time-sec" id="phone-time-sec">0</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text" id="btnGroupAddon">+</div>
+            </div>
+            <input id="current-phone" type="text" class="form-control" placeholder="XXXXXXXXXXX"
+              aria-label="XXXXXXXXXXX" aria-describedby="btnGroupAddon">
+          </div>
+          <a style="color: white; margin-left: 280px; margin-top: -65px;" id="copy-phone-btn" tabindex="0"
+            class="btn btn-primary" role="button" data-toggle="popover" data-trigger="focus"
+            title="Скопировано">Скопировать</a>
+          <div>
+            <label>Код</label>
+            <ul id="code-collection" class="list-group" style="margin-bottom: 10px;">
+              
+            </ul>
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</body>
+</html>
