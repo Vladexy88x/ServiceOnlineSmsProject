@@ -7,9 +7,5 @@ function AnimationLayer() {
       }
     })
   })
-   
 }
-
-
-
 window.addEventListener("load",  AnimationLayer, false);
