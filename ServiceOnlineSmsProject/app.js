@@ -26,6 +26,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function (req, res, next) {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+    next();
+});
+
 let users = [
     { login: "vlad", password: "241x" },
     { login: "mem", password: "12" }
@@ -82,11 +90,6 @@ const DetermineBalanceByUsername = () => {
 
 
 app.get('/', CheckAuthenticated, (request, response) => {
-
-    response.setHeader("Content-Type", "application/json");
-    response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    response.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     response.send('lel');
 })
 
@@ -95,18 +98,10 @@ app.get('/', CheckAuthenticated, (request, response) => {
 
 
 app.get('/passwordreset', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     content.PasswordResetPage(res);
 })
 
 app.post('/passwordreset', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     if (req.body.email.indexOf("@") == -1 || req.body.email == "" || req.body.password == "" || req.body.username == "") {
         return;
     }
@@ -134,10 +129,6 @@ app.post('/passwordreset', CheckNotAuthenticated, (req, res, next) => {
 })
 
 app.get('/checkauth', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     if (req.headers.referer === 'http://' + req.get('host') + '/auth') {
         content.FailedAuthorizationPage(res);
     } else {
@@ -146,11 +137,6 @@ app.get('/checkauth', CheckNotAuthenticated, (req, res, next) => {
 })
 
 app.get('/auth', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-   
     content.AuthPage(res);
 
     // SqlInitialize.Initialize().then(result => {
@@ -168,28 +154,15 @@ app.post('/auth', CheckNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/content', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     content.HomePage(res);
-
 });
 
 app.get('/register', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     content.RegisterPage(res);
 
 });
 
 app.post('/register', CheckNotAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "text/html; charset=UTF-8");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     try {
         const generateId = Math.random() * 4000;
         SqlInitialize.AddUser(generateId, req.body.username, req.body.password);
@@ -206,14 +179,8 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/localdata', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     res.send(JSON.stringify({ username: localUserName, balance: localBalance }));
 })
-
-
 
 
 app.get('/getuserinfo', CheckAuthenticated, (req, res, next) => {
@@ -223,73 +190,36 @@ app.get('/getuserinfo', CheckAuthenticated, (req, res, next) => {
 
 app.get('/getcountnew', CheckAuthenticated, (req, res, next) => {
     // req.query.service == "opt3";
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetCountNew(req, res, next);
 });
 
 app.get('/getserviceprice', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetServicePrice(req, res, next);
 });
 
 app.get('/getnumber', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetNumber(req, res, next);
 });
 
 app.get('/getsms', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetSms(req, res, next);
-
 });
 
 app.get('/bannumber', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.BanNumber(req, res, next);
-
 });
 
 app.get('/rejectionofnumber', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.RejectionOfNumber(req, res, next);
-
 });
 //response: "{"response":"1","number":"9033995628","id":51068051,"again":0,"text":null,"extra":"","karma":50,"pass":null,"sms":null,"balanceOnPhone":0,"service":null,"country":null,"CountryCode":"+7","branchId":0,"callForwarding":false,"goipSlotId":-1}"
 
 app.get('/getclearsms', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetClearSms(req, res, next);
-
 });
 
 app.get('/getchecknumber', CheckAuthenticated, (req, res, next) => {
-    res.setHeader("Content-Type", "application/json");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     ware.GetCheckNumber(req, res, next);
-
 });
     //response: "{"response":"1","number":"9033965769","id":51141602,"again":0,"text":null,"extra":"","karma":47.050000000000026,"pass":null,"sms":null,"balanceOnPhone":0,"service":null,"country":null,"CountryCode":"+7","branchId":0,"callForwarding":false,"goipSlotId":-1}"
 
