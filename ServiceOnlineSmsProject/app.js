@@ -60,7 +60,6 @@ const CheckNotAuthenticated = (req, res, next) => {
       DetermineBalanceByUsername();
     }
   }
-
   next();
 };
 
@@ -68,7 +67,6 @@ const CheckAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-
   res.redirect('/auth');
 };
 
@@ -85,11 +83,9 @@ const DetermineBalanceByUsername = () => {
   }
 };
 
-
 app.get('/', CheckAuthenticated, (request, response) => {
   response.send('lel');
 });
-
 
 app.get('/passwordreset', CheckNotAuthenticated, (req, res, next) => {
   content.PasswordResetPage(res);
@@ -173,7 +169,6 @@ app.post('/logout', (req, res) => {
 app.get('/localdata', CheckAuthenticated, (req, res, next) => {
   res.send(JSON.stringify({ username: localUserName, balance: localBalance }));
 });
-
 
 app.get('/getuserinfo', CheckAuthenticated, (req, res, next) => {
   // res.redirect('/auth');
