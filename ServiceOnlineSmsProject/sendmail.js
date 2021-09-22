@@ -16,10 +16,10 @@ async function SendMessageMail(email, message) {
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
-    from: '"Sms online" <6c7577bfb2d6dc0345f8e@mail.ru>', // sender address
-    to: email, // sada.sada.91@inbox.ru, example@mail.ru. List of receivers
-    subject: 'Сброс пароля smsonline', // Subject line
-    text: 'Hello world ok da?', // plain text body
+    from: '"Sms online" <6c7577bfb2d6dc0345f8e@mail.ru>', 
+    to: email,
+    subject: 'Сброс пароля smsonline',
+    text: 'Hello world ok da?', 
     html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
