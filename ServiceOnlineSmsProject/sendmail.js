@@ -1,26 +1,26 @@
 const nodemailer = require('nodemailer');
 
 async function SendMessageMail(email, message) {
-    //let testAccount = await nodemailer.createTestAccount();
+  // let testAccount = await nodemailer.createTestAccount();
 
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: "smtp.mail.ru",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: "6c7577bfb2d6dc0345f8e@mail.ru", // generated ethereal user
-            pass: "7bfb2d6dc036c757ad)as", // generated ethereal password
-        },
-    });
+  // create reusable transporter object using the default SMTP transport
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.mail.ru',
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: '6c7577bfb2d6dc0345f8e@mail.ru', // generated ethereal user
+      pass: '7bfb2d6dc036c757ad)as', // generated ethereal password
+    },
+  });
 
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: '"Sms online" <6c7577bfb2d6dc0345f8e@mail.ru>', // sender address
-        to: email, // sada.sada.91@inbox.ru, example@mail.ru. List of receivers
-        subject: "Сброс пароля smsonline", // Subject line
-        text: "Hello world ok da?", // plain text body
-        html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"Sms online" <6c7577bfb2d6dc0345f8e@mail.ru>', // sender address
+    to: email, // sada.sada.91@inbox.ru, example@mail.ru. List of receivers
+    subject: 'Сброс пароля smsonline', // Subject line
+    text: 'Hello world ok da?', // plain text body
+    html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -112,14 +112,14 @@ async function SendMessageMail(email, message) {
             </table>
         </body>
         </html>`, // html body
-    });
+  });
 
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  console.log('Message sent: %s', info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-    // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  // Preview only available when sending through an Ethereal account
+  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
-module.exports = SendMessageMail; 
+module.exports = SendMessageMail;
