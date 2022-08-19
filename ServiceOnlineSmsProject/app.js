@@ -176,7 +176,6 @@ app.get('/getuserinfo', CheckAuthenticated, (req, res, next) => {
 });
 
 app.get('/getcountnew', CheckAuthenticated, (req, res, next) => {
-  // req.query.service == "opt3";
   ware.GetCountNew(req, res, next);
 });
 
@@ -208,9 +207,7 @@ app.get('/getclearsms', CheckAuthenticated, (req, res, next) => {
 app.get('/getchecknumber', CheckAuthenticated, (req, res, next) => {
   ware.GetCheckNumber(req, res, next);
 });
-// response: "{"response":"1","number":"9033965769","id":51141602,"again":0,"text":null,"extra":"","karma":47.050000000000026,"pass":null,"sms":null,"balanceOnPhone":0,"service":null,"country":null,"CountryCode":"+7","branchId":0,"callForwarding":false,"goipSlotId":-1}"
 
-// npm init для создания package.json
 app.listen(port, () => {
   console.log(`${port}`);
 });
