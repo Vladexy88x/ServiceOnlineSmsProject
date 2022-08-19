@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const ApiKey = '1mFnqWeSGyBBWqscPJPeyprd5AT2Ts';
+const ApiKey = '';
 
 const GetUserInfo = (req, res, next) => {
   let preResult = '';
