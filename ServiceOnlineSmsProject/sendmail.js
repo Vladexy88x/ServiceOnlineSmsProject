@@ -9,8 +9,8 @@ async function SendMessageMail(email, message) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: '6c7577bfb2d6dc0345f8e@mail.ru', // generated ethereal user
-      pass: '7bfb2d6dc036c757ad)as', // generated ethereal password
+      user: '', // generated ethereal user
+      pass: '', // generated ethereal password
     },
   });
 
