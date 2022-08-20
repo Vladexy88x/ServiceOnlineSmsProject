@@ -78,8 +78,6 @@ function QueryAndDisplay() {
   let contentId = '';
   let currentNumber = '';
   document.getElementById('getnumber-start-work').onclick = () => {
-    // document.getElementById('phone-time-min').innerHTML = '0';
-    // document.getElementById('phone-time-sec').innerHTML = '0';
     const MILLISECONDS = 1000;
     if (document.getElementById('phone-time-min').innerHTML == '0' && document.getElementById('phone-time-sec').innerHTML == '0') {
       document.getElementById('phone-time-min').innerHTML = '10';
