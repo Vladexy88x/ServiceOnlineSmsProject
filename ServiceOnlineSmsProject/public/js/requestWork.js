@@ -1,5 +1,5 @@
 
-// http://localhost:3002/getcountnew?service=opt4
+// http://localhost:3002/getcountnew?service=
 
 function QueryAndDisplay() {
   const serviceIdElem = document.getElementById('service-child');
@@ -122,16 +122,6 @@ function QueryAndDisplay() {
     if (contentNumber.response == '2') {
       console.log(contentNumber);
     }
-
-
-    // // let elemShowNumber = document.getElementById("get-new-phone-number")
-    // // elemShowNumber.innerText = `Номер арендован : ${content['number']}`;
-    // // if (content['response'] == 2) {
-
-    // // }
-    // // if (content['id' == -1]) {
-
-    // // }
   };
 
 
@@ -265,8 +255,6 @@ function QueryAndDisplay() {
         const codeCollection = document.getElementById('code-collection');
         const codeChildElement = document.createElement('li');
         codeChildElement.className = 'list-group-item';
-        // codeChildElement.innerText = contentSms['text'];
-        //  codeChildElement.setAttribute("name", "code-item");
         codeCollection.appendChild(codeChildElement);
         const codeContent = document.createElement('span');
         codeContent.className = 'badge badge-secondary badge-pill';
@@ -304,8 +292,6 @@ function QueryAndDisplay() {
     if (xhrSecond.status == 200) {
       content = JSON.parse(xhrSecond.responseText);
     }
-    // let countService = document.getElementById("service-variable")
-    // countService.innerText = `Сервис : ${countrySelectText}`;
 
     const countPrice = document.getElementById('price-variable');
     countPrice.innerHTML = `Цена <kbd class="bg-primary" id="price-val">${content.price}</kbd>`;
